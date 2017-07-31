@@ -43,5 +43,6 @@ class FillOutQuestionaire(UpdateView):
         context['doingRankings'] = TemplateBoolean()
         return super(FillOutQuestionaire, self).render_to_response(context, **response_kwargs)
 
+
 class FramelessQuestionaire(FillOutQuestionaire):
     template_name = "django_pre_post/frameless_questionaire.html"

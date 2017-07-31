@@ -9,6 +9,7 @@ def AnswerDisplay(self, obj):
     else:
         return obj.expectedTextAnswer
 
+
 class TemplateBoolean():
     value = False
 

@@ -44,7 +44,7 @@ class Question(models.Model):
     type = models.IntegerField(choices=QUESTION_TYPES)
 
     def __unicode__(self):
-        return self.content + ': '+ str(AnswerDisplay(self, self))
+        return self.content + ': ' + str(AnswerDisplay(self, self))
 
 
 class Answer(models.Model):

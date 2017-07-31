@@ -27,7 +27,7 @@ class QuestionAdmin(admin.ModelAdmin):
         return obj.get_type_display()
 
     def expected_answer(self, obj):
-        return AnswerDisplay(self,obj)
+        return AnswerDisplay(self, obj)
 
 
 class QuestionaireAdmin(admin.ModelAdmin):
