@@ -1,0 +1,41 @@
+language: python
+
+node_js:
+  - "7"
+  - "node"
+
+python:
+  - 2.7
+
+services: postgresql
+
+env:
+  - DJANGO=1.9.5
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE="rpi_csdt_community.settings"
+  - export PYTHONPATH="/usr/local/lib/python2.7/dist-packages"
+  - export PIP_USE_MIRRORS=true
+  - "npm config set spin false"
+  - "npm install -g npm@^5"
+
+install:
+  - $(type -P npm) install -g less
+  - $(type -P npm) install -g yuglify
+  - pip install setuptools --upgrade
+  - pip install --upgrade -r requirements.txt
+  - pip install coveralls
+  - pip install flake8
+
+
+before_script:
+  - psql -c "CREATE DATABASE travisci;" -U postgres
+
+script:
+  - flake8 .
+  - python manage.py migrate
+  - coverage run --source=rpi_csdt_community manage.py test
+
+after_success:
+  - pip freeze
+  - echo Uploading code coverage data ...; coveralls

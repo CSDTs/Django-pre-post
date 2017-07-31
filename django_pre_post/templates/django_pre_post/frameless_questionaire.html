@@ -1,0 +1,55 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+
+{% block page-header %}
+<h1>{{ object.name }}</h1>
+{% endblock %}
+{% block content %}
+    <form class="form-horizontal" method="post" action="{% url 'fill-out-questionaire' pk=object.pk %}">
+          {% for question in object.questions.all %}
+            {% if question.get_type_display == 'Rank'%}
+              {% if not doingRankings.value %}
+              <div class='row'>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Statement</th>
+                    <th>Rank (1 low, 5 high)</th>
+                  </tr>
+                </thead>
+                <tbody>
+              {% endif %}
+              {{ doingRankings.true }}
+              {%include 'django_pre_post/rank.html' with object=question %}
+            {% else %}
+              {% if doingRankings.value %}
+                  </tbody>
+                </table>
+              </div>
+            {% endif %}
+              <div class='row'>
+              {{ doingRankings.false }}
+              {% autoescape off %}
+                {{question.number}}. {{question.content}}
+              {% endautoescape %}
+              </div>
+              <div class='row'>
+                {% if question.get_type_display == 'Fill In The Blank' %}
+                  {%include 'django_pre_post/fill_in_the_blank.html' with object=question %}
+                {% elif question.get_type_display == 'Multiple Choice' %}
+                  {%include 'django_pre_post/multiple_choice.html' with object=question %}
+                {% elif question.get_type_display == 'Numeric' %}
+                  {%include 'django_pre_post/numeric.html' with object=question %}
+                {% elif question.get_type_display == 'Open Ended' %}
+                  {%include 'django_pre_post/open_ended.html' with object=question %}
+                {% endif %}
+              </div>
+              <br/>
+            {% endif %}
+          {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {% csrf_token %}
+    </form>
+
+{% endblock %}
