@@ -27,7 +27,13 @@ setup(
     keywords="test, pre-post, questionaire, survey",
     packages=find_packages(),
     long_description=read('README.md'),
-    install_requires=read_requirements('requirements.txt'),
+    install_requires=[
+                      'Django==1.10.6',
+                      'django-bootstrap3==8.2.2',
+                      ],
+    dependency_links=[
+        'https://github.com/CSnap/django_teams/tarball/master',
+    ],
     test_suite="dummy",
     include_package_data=True,
 )

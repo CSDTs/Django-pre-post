@@ -1,3 +1,3 @@
 Django==1.10.6
 django-bootstrap3==8.2.2
-git+https://github.com/CSnap/django_teams.git
+https://github.com/CSnap/django_teams/tarball/master
