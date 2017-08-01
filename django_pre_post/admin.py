@@ -1,7 +1,5 @@
-# This is where you can add stuff to the admin view
 from django.contrib import admin
-
-from django_pre_post.models import Answer, Question, Questionaire, Attempt
+from django_pre_post.models import Answer, Question, Questionaire, Attempt, QuestionOrder
 from django_pre_post.util import AnswerDisplay
 
 
@@ -18,8 +16,13 @@ class AnswerAdmin(admin.ModelAdmin):
         return obj.attempt.questionaire
 
 
+class QuestionOrderInline(admin.TabularInline):
+    model = QuestionOrder
+    extra = 1
+
+
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['number', 'question_type', 'content', 'expected_answer', 'created', 'modified']
+    list_display = ['question_type', 'content', 'expected_answer', 'created', 'modified']
     list_filter = ["questionaire", "type"]
     search_fields = ["content"]
 
@@ -34,6 +37,7 @@ class QuestionaireAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner', 'team', 'created', 'modified', 'public']
     list_filter = ["owner", "team"]
     search_fields = ["name", "owner", 'team']
+    inlines = (QuestionOrderInline,)
 
 
 class AttemptAdmin(admin.ModelAdmin):

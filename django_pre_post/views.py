@@ -4,11 +4,16 @@ from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django_pre_post.models import Questionaire, Question, Answer, Attempt
 from django_pre_post.util import TemplateBoolean
+from django.core.urlresolvers import reverse
 
 
 class FillOutQuestionaire(UpdateView):
     model = Questionaire
     fields = ['name', 'questions']
+
+    def get_success_url(self):
+        print('test2')
+        return reverse('successful-submission')
 
     def get_object(self):
         obj = super(FillOutQuestionaire, self).get_object()
@@ -28,7 +33,7 @@ class FillOutQuestionaire(UpdateView):
                     if question.get_type_display() == 'Multiple Choice':
                         answer = Answer(question=question, owner=request.user,
                                         attempt=attempt, multipleChoiceAnswer=request.POST[item])
-                    elif question.get_type_display() == 'Numeric':
+                    elif question.get_type_display() == 'Numeric' or question.get_type_display() == 'Rank':
                         answer = Answer(question=question, owner=request.user,
                                         attempt=attempt, numericAnswer=request.POST[item])
                     else:
@@ -37,10 +42,11 @@ class FillOutQuestionaire(UpdateView):
                     answer.save()
                 except:
                     pass
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect(self.get_success_url())
 
     def render_to_response(self, context, **response_kwargs):
         context['doingRankings'] = TemplateBoolean()
+        context['questions'] = self.get_object().questions.order_by('questionorder')
         return super(FillOutQuestionaire, self).render_to_response(context, **response_kwargs)
 
 

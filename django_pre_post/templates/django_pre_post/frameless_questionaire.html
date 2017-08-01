@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
     <form class="form-horizontal" method="post" action="{% url 'fill-out-questionaire' pk=object.pk %}">
-          {% for question in object.questions.all %}
+          {% for question in questions %}
             {% if question.get_type_display == 'Rank'%}
               {% if not doingRankings.value %}
               <div class='row'>
@@ -30,7 +30,7 @@
               <div class='row'>
               {{ doingRankings.false }}
               {% autoescape off %}
-                {{question.number}}. {{question.content}}
+                {{question.content}}
               {% endautoescape %}
               </div>
               <div class='row'>

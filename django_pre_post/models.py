@@ -20,45 +20,43 @@ MULTIPLE_CHOICES = (
 )
 
 
-class Questionaire(models.Model):
-    name = models.CharField(max_length=255, default="my questionaire")
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, blank=True, null=True, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    questions = models.ManyToManyField('django_pre_post.question')
-    public = models.BooleanField(default=False)
-
-    def __unicode__(self):              # __unicode__ on Python 2
-        return self.name
-
-
 class Question(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     content = models.TextField(null=True, blank=True)
-    number = models.IntegerField()
     expectedTextAnswer = models.TextField(blank=True, null=True)
     expectedNumericAnswer = models.IntegerField(blank=True, null=True)
     expectedMultipleChoiceAnswer = models.IntegerField(choices=MULTIPLE_CHOICES, blank=True, null=True)
     type = models.IntegerField(choices=QUESTION_TYPES)
 
     def __unicode__(self):
-        return self.content + ': ' + str(AnswerDisplay(self, self))
+        data = self.content + ': ' + str(AnswerDisplay(self, self))
+        return (data[:90] + '...') if len(data) > 90 else data
 
 
-class Answer(models.Model):
-    question = models.ForeignKey('django_pre_post.Question', on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    attempt = models.ForeignKey('django_pre_post.Attempt', blank=True, null=True, on_delete=models.CASCADE)
-    textAnswer = models.TextField(blank=True, null=True)
-    numericAnswer = models.IntegerField(blank=True, null=True)
-    multipleChoiceAnswer = models.IntegerField(choices=MULTIPLE_CHOICES, blank=True, null=True)
+class Questionaire(models.Model):
+    name = models.CharField(max_length=255, default="my questionaire")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, blank=True, null=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    questions = models.ManyToManyField(Question, through='QuestionOrder')
+    public = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return AnswerDisplay(self, self.question)
+    def __unicode__(self):              # __unicode__ on Python 2
+        return self.name
+
+    def get_questions(self):
+        return self.questions.order_by('link_to_questionaire')
+
+
+class QuestionOrder(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    questionaire = models.ForeignKey(Questionaire, on_delete=models.CASCADE)
+    rank = models.IntegerField()
+
+    class Meta:
+        ordering = ('rank',)
 
 
 class Attempt(models.Model):
@@ -69,3 +67,17 @@ class Attempt(models.Model):
 
     def __unicode__(self):              # __unicode__ on Python 2
         return str(self.id)
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    attempt = models.ForeignKey(Attempt, blank=True, null=True, on_delete=models.CASCADE)
+    textAnswer = models.TextField(blank=True, null=True)
+    numericAnswer = models.IntegerField(blank=True, null=True)
+    multipleChoiceAnswer = models.IntegerField(choices=MULTIPLE_CHOICES, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return AnswerDisplay(self, self.question)
