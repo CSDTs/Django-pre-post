@@ -9,12 +9,29 @@
           {% for question in questions %}
             {% if question.get_type_display == 'Rank'%}
               {% if not doingRankings.value %}
+              <div class='row' align="center">
+                <b>
+                  1= Strongly Disagree &emsp;  &ensp;
+                  2= Disagree &emsp;  &ensp;
+                  3= Neutral &emsp;  &ensp;
+                  4= Agree &emsp;  &ensp;
+                  5= Strongly Agree &emsp;  &ensp;
+                </b>
+              </div>
               <div class='row'>
               <table class="table table-striped">
                 <thead>
                   <tr>
                     <th>Statement</th>
-                    <th>Rank (1 low, 5 high)</th>
+                    <th>
+                      <div class=col-xs-2>
+                        SD
+                      </div>
+                      <div class=col-xs-6></div>
+                      <div class=col-xs-2>
+                        SA
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>

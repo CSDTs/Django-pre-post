@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django_teams.models import Team
-from django_pre_post.util import AnswerDisplay
+from django_pre_post.util import AnswerDisplay, ExpectedAnswerDisplay
 
 QUESTION_TYPES = (
     (1, 'Fill In The Blank'),
@@ -30,7 +30,7 @@ class Question(models.Model):
     type = models.IntegerField(choices=QUESTION_TYPES)
 
     def __unicode__(self):
-        data = self.content + ': ' + str(AnswerDisplay(self, self))
+        data = self.content + ': ' + str(ExpectedAnswerDisplay(self, self))
         return (data[:90] + '...') if len(data) > 90 else data
 
 
@@ -80,4 +80,4 @@ class Answer(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return AnswerDisplay(self, self.question)
+        return AnswerDisplay(self, self)

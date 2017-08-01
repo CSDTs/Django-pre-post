@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_pre_post.models import Answer, Question, Questionaire, Attempt, QuestionOrder
-from django_pre_post.util import AnswerDisplay
+from django_pre_post.util import AnswerDisplay, ExpectedAnswerDisplay
 
 
 class AnswerAdmin(admin.ModelAdmin):
@@ -10,7 +10,7 @@ class AnswerAdmin(admin.ModelAdmin):
     readonyfields = ('created', 'modified')
 
     def relevant_answer(self, obj):
-        return AnswerDisplay(self, obj.question)
+        return AnswerDisplay(self, obj)
 
     def questionaire(self, obj):
         return obj.attempt.questionaire
@@ -30,7 +30,7 @@ class QuestionAdmin(admin.ModelAdmin):
         return obj.get_type_display()
 
     def expected_answer(self, obj):
-        return AnswerDisplay(self, obj)
+        return ExpectedAnswerDisplay(self, obj)
 
 
 class QuestionaireAdmin(admin.ModelAdmin):
