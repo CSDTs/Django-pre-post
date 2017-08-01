@@ -9,6 +9,7 @@ def ExpectedAnswerDisplay(self, obj):
     else:
         return obj.expectedTextAnswer
 
+
 def AnswerDisplay(self, obj):
     type = obj.question.get_type_display()
     if type == 'Multiple Choice':
@@ -19,6 +20,7 @@ def AnswerDisplay(self, obj):
         return ''
     else:
         return obj.textAnswer
+
 
 class TemplateBoolean():
     value = False
