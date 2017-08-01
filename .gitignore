@@ -8,6 +8,10 @@ eclipse/
 *.sqlite3
 python/
 media/
+build/
+dist/
+django_pre_post.egg-info/
+
 collected_static/
 local_settings.py
 static/website/

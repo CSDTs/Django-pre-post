@@ -43,10 +43,13 @@
                   </tbody>
                 </table>
               </div>
-            {% endif %}
+              {% endif %}
               <div class='row'>
               {{ doingRankings.false }}
               {% autoescape off %}
+                {% if not question.get_type_display == 'Info' %}
+                  {{ forloop.counter }}.
+                {% endif %}
                 {{question.content}}
               {% endautoescape %}
               </div>
@@ -64,6 +67,11 @@
               <br/>
             {% endif %}
           {% endfor %}
+          {% if doingRankings.value %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
 
           <div class='row'>
             <button type="submit" class="btn btn-primary">Submit</button>
