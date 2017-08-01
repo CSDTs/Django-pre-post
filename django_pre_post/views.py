@@ -1,14 +1,14 @@
 from django.core.exceptions import PermissionDenied
-from django_pre_post.forms import CSRFQuestionaireForm
+from django_pre_post.forms import CSRFQuestionnaireForm
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
-from django_pre_post.models import Questionaire, Question, Answer, Attempt
+from django_pre_post.models import Questionnaire, Question, Answer, Attempt
 from django_pre_post.util import TemplateBoolean
 from django.core.urlresolvers import reverse
 
 
-class FillOutQuestionaire(UpdateView):
-    model = Questionaire
+class FillOutQuestionnaire(UpdateView):
+    model = Questionnaire
     fields = ['name', 'questions']
 
     def get_success_url(self):
@@ -16,16 +16,16 @@ class FillOutQuestionaire(UpdateView):
         return reverse('successful-submission')
 
     def get_object(self):
-        obj = super(FillOutQuestionaire, self).get_object()
+        obj = super(FillOutQuestionnaire, self).get_object()
         if (not obj.public and obj.owner != self.request.user) and not self.request.user.is_superuser:
             raise PermissionDenied()
         self.object = obj
         return obj
 
     def post(self, request, *args, **kwargs):
-        form = CSRFQuestionaireForm(request.POST)
+        form = CSRFQuestionnaireForm(request.POST)
         if form.is_valid():
-            attempt = Attempt(questionaire=self.get_object(), owner=request.user)
+            attempt = Attempt(questionnaire=self.get_object(), owner=request.user)
             attempt.save()
             for item in request.POST:
                 try:
@@ -47,8 +47,8 @@ class FillOutQuestionaire(UpdateView):
     def render_to_response(self, context, **response_kwargs):
         context['doingRankings'] = TemplateBoolean()
         context['questions'] = self.get_object().questions.order_by('questionorder')
-        return super(FillOutQuestionaire, self).render_to_response(context, **response_kwargs)
+        return super(FillOutQuestionnaire, self).render_to_response(context, **response_kwargs)
 
 
-class FramelessQuestionaire(FillOutQuestionaire):
-    template_name = "django_pre_post/frameless_questionaire.html"
+class FramelessQuestionnaire(FillOutQuestionnaire):
+    template_name = "django_pre_post/frameless_questionnaire.html"

@@ -23,8 +23,8 @@ setup(
     version="1.0.0",
     author="Silly Inventor",
     author_email="SillyInventor@gmail.com",
-    description="This package provides a framework for surveys and questionaires",
-    keywords="test, pre-post, questionaire, survey",
+    description="This package provides a framework for surveys and questionnaires",
+    keywords="test, pre-post, questionnaire, survey",
     packages=find_packages(),
     long_description=read('README.md'),
     install_requires=[

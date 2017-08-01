@@ -5,7 +5,7 @@
 <h1>{{ object.name }}</h1>
 {% endblock %}
 {% block content %}
-    <form class="form-horizontal" method="post" action="{% url 'fill-out-questionaire' pk=object.pk %}">
+    <form class="form-horizontal" method="post" action="{% url 'fill-out-questionnaire' pk=object.pk %}">
           {% for question in questions %}
             {% if question.get_type_display == 'Rank'%}
               {% if not doingRankings.value %}

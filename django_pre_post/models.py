@@ -34,8 +34,8 @@ class Question(models.Model):
         return (data[:90] + '...') if len(data) > 90 else data
 
 
-class Questionaire(models.Model):
-    name = models.CharField(max_length=255, default="my questionaire")
+class Questionnaire(models.Model):
+    name = models.CharField(max_length=255, default="my questionnaire")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, blank=True, null=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -47,12 +47,12 @@ class Questionaire(models.Model):
         return self.name
 
     def get_questions(self):
-        return self.questions.order_by('link_to_questionaire')
+        return self.questions.order_by('link_to_questionnaire')
 
 
 class QuestionOrder(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    questionaire = models.ForeignKey(Questionaire, on_delete=models.CASCADE)
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
     rank = models.IntegerField()
 
     class Meta:
@@ -61,7 +61,7 @@ class QuestionOrder(models.Model):
 
 class Attempt(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    questionaire = models.ForeignKey('django_pre_post.Questionaire', on_delete=models.CASCADE)
+    questionnaire = models.ForeignKey('django_pre_post.Questionnaire', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

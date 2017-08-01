@@ -1,7 +1,7 @@
 from django import forms
-from django_pre_post.models import Questionaire
+from django_pre_post.models import Questionnaire
 
 
-class CSRFQuestionaireForm(forms.Form):
-    model = Questionaire
+class CSRFQuestionnaireForm(forms.Form):
+    model = Questionnaire
     fields = []
