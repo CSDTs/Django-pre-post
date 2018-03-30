@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/CSDTs/Django-pre-post.svg?branch=master)](https://travis-ci.org/CSnap/Django-pre-post)
+[![Build Status](https://travis-ci.org/CSDTs/Django-pre-post.svg?branch=master)](https://travis-ci.org/CSDTs/Django-pre-post)[![Updates](https://pyup.io/repos/github/CSDTs/Django-pre-post/shield.svg)](https://pyup.io/repos/github/CSDTs/Django-pre-post/)
+
 
 # Django-pre-post
 This Django app provides the ability to create pre-post questions and answers. It was developed by the CSDTs team at RPI to embed pre-post tests for students in their website and to ease data collection.
