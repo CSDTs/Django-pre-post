@@ -4,7 +4,7 @@ import os
 try:
     from setuptools import setup
     from setuptools import find_packages
-except: # noqa: E722
+except:  # noqa: E722
     from distutils.core import setup
 
 
