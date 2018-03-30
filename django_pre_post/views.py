@@ -40,7 +40,7 @@ class FillOutQuestionnaire(UpdateView):
                         answer = Answer(question=question, owner=request.user,
                                         attempt=attempt, textAnswer=request.POST[item])
                     answer.save()
-                except: # noqa: E722
+                except:  # noqa: E722
                     pass
         return HttpResponseRedirect(self.get_success_url())
 
