@@ -20,7 +20,7 @@ def read_requirements(fname):
 setup(
     zip_safe=False,
     name="django_pre_post",
-    version="1.0.0",
+    version="1.1.0",
     author="Silly Inventor",
     author_email="SillyInventor@gmail.com",
     description="This package provides a framework for surveys and questionnaires",
@@ -32,7 +32,7 @@ setup(
                       'django-bootstrap3==8.2.2',
                       ],
     dependency_links=[
-        'https://github.com/CSnap/django_teams/tarball/master',
+        'https://github.com/CSDTs/django_teams/tarball/master',
     ],
     test_suite="dummy",
     include_package_data=True,
