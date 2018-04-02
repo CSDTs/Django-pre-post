@@ -72,7 +72,7 @@ class Attempt(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    attempt = models.ForeignKey(Attempt, blank=True, null=True, on_delete=models.CASCADE)
+    attempt = models.ForeignKey(Attempt, blank=True, null=True, related_name='answers', on_delete=models.CASCADE)
     textAnswer = models.TextField(blank=True, null=True)
     numericAnswer = models.IntegerField(blank=True, null=True)
     multipleChoiceAnswer = models.IntegerField(choices=MULTIPLE_CHOICES, blank=True, null=True)
@@ -80,4 +80,4 @@ class Answer(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return AnswerDisplay(self, self)
+        return 'Q. ' + self.question.__unicode__() + " - Answer: " + AnswerDisplay(self, self)
