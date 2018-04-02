@@ -27,10 +27,7 @@ setup(
     keywords="test, pre-post, questionnaire, survey",
     packages=find_packages(),
     long_description=read('README.md'),
-    install_requires=['requirements.txt'],
-    dependency_links=[
-        'https://github.com/CSDTs/django_teams/tarball/master',
-    ],
+    install_requires=read_requirements('requirements.txt'),
     test_suite="dummy",
     include_package_data=True,
 )
