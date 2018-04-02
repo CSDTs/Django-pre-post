@@ -21,6 +21,16 @@ class QuestionOrderInline(admin.TabularInline):
     extra = 1
 
 
+class AnswerReadonlyInline(admin.TabularInline):
+    model = Answer
+    extra = 0
+    readonly_fields = ('question', 'relevant_answer')
+    fields = ('question', 'relevant_answer',)
+
+    def relevant_answer(self, obj):
+        return AnswerDisplay(self, obj)
+
+
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ['question_type', 'content', 'expected_answer', 'created', 'modified']
     list_filter = ["questionnaire", "type"]
@@ -42,8 +52,10 @@ class QuestionnaireAdmin(admin.ModelAdmin):
 
 class AttemptAdmin(admin.ModelAdmin):
     list_display = ['questionnaire', 'owner', 'created', 'modified']
-    list_filter = ["questionnaire", "owner"]
-    search_fields = ["questionnaire", "owner"]
+    list_filter = ['questionnaire', 'owner']
+    search_fields = ['questionnaire', 'owner']
+    fields = (('questionnaire', 'owner'),)
+    inlines = (AnswerReadonlyInline,)
 
 
 admin.site.register(Answer, AnswerAdmin)
