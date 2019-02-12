@@ -1,4 +1,4 @@
-Django==1.11.16 # pyup: < 2.0.0 until 2020-04-01
-django-bootstrap3==11.0.0
-djangorestframework==3.9.0
+Django==1.11.20 # pyup: < 2.0.0 until 2020-04-01
+django-bootstrap4==0.0.7
+djangorestframework==3.9.1
 django-teams-community==1.4.5
