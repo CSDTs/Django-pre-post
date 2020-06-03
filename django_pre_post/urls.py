@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from rest_framework import routers
 router = routers.DefaultRouter()
 router = routers.DefaultRouter()
-router.register(r'attempts', AttemptViewSet, base_name='api-attempts')
+router.register(r'attempts', AttemptViewSet, basename='api-attempts')
 
 urlpatterns = [
     url(r'^questionnaire/(?P<pk>\d+)/$', FillOutQuestionnaire.as_view(), name='fill-out-questionnaire'),

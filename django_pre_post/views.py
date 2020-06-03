@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django_pre_post.models import Questionnaire, Question, Answer, Attempt
 from django_pre_post.util import TemplateBoolean
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class FillOutQuestionnaire(UpdateView):

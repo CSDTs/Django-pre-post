@@ -14,30 +14,30 @@ Or add django_pre_post to your requirements / libraries file and run `pip instal
 Include it in settings.py
 ```
 INSTALLED_APPS = (
-    ... your apps here ...
-    'django_pre_post',
+... your apps here ...
+'django_pre_post',
 )
 ```
 Include it in URLS.py
 ```
 urlpatterns = [
-    ... your pages here...
-    url(r'^questionnaire/', include('django_pre_post.urls')),
+... your pages here...
+url(r'^questionnaire/', include('django_pre_post.urls')),
 ]
 ```
 # Testing
 
 ## Prerequisites
-* VirtualBox
-  * Linux: sudo apt-get install virtualbox
-  * Windows & Mac: https://www.virtualbox.org/wiki/Downloads
-* Vagrant
-  * Linux: sudo apt-get install vagrant
-  * Windows & Mac: https://www.vagrantup.com/downloads.html
-* Git
-  * Linux: sudo apt-get install git
-  * Windows & Mac: https://git-scm.com/downloads
-    * For windows Make sure C:\Program Files\Git\usr\bin [is in your path variable](http://www.computerhope.com/issues/ch000549.htm)
+* * VirtualBox
+* Linux: sudo apt-get install virtualbox
+* Windows & Mac: https://www.virtualbox.org/wiki/Downloads
+* * Vagrant
+* Linux: sudo apt-get install vagrant
+* Windows & Mac: https://www.vagrantup.com/downloads.html
+* * Git
+* Linux: sudo apt-get install git
+* Windows & Mac: https://git-scm.com/downloads
+* * * For windows Make sure C:\Program Files\Git\usr\bin [is in your path variable](http://www.computerhope.com/issues/ch000549.htm)
 
 ## Setup
 ```shell

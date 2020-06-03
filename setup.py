@@ -19,10 +19,10 @@ def read_requirements(fname):
 
 setup(
     zip_safe=False,
-    name="django_pre_post",
-    version="1.1.0",
-    author="Silly Inventor",
-    author_email="SillyInventor@gmail.com",
+    name="django-prepost",
+    version="2.0.0",
+    author="Sumedh Walujkar",
+    author_email="sumedh@umich.edu",
     description="This package provides a framework for surveys and questionnaires",
     keywords="test, pre-post, questionnaire, survey",
     packages=find_packages(),
