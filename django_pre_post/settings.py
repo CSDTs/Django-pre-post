@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_pre_post',
     'django_teams',
-    'bootstrap3',
+    'bootstrap4',
 ]
 
 MIDDLEWARE_CLASSES = [
